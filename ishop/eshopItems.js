@@ -1,10 +1,10 @@
-var eshopItems = React.createClass({
+var EshopItems = React.createClass({
 
 	displayName: 'Eshop-item',
 
 	propTypes: {
 		title: React.PropTypes.string.isRequired, // текст вопроса
-		item: React.PropTypes.arrayOf(
+		items: React.PropTypes.arrayOf(
 			React.PropTypes.shape({
 				name: React.PropTypes.string.isRequired,
 				brand: React.PropTypes.string.isRequired,
