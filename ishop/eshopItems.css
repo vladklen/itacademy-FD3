@@ -25,6 +25,13 @@ width: 100%;
   border: 2px solid grey;
 }
 
+.Eshop-item .Catalog .Item__image
+{
+vertical-align: middle;
+text-align: center;
+
+}
+
 .Eshop-item .Catalog .Item .photo
 {
 	width: 150px;
