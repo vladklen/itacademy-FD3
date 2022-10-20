@@ -1,0 +1,28 @@
+﻿.eshop-item
+{
+ margin: 0px;
+ font-weight: bold;
+}
+
+
+.eshop-item .Catalog
+{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-content: space-between;
+}
+
+.eshop-item .Catalog .Item
+{
+  padding: 20px;
+  border: 2px solid grey;
+}
+
+.eshop-item .Catalog .Item .photo
+{
+	width: 150px;
+	height: 180px;
+}
