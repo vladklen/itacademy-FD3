@@ -1,27 +1,31 @@
-﻿.eshop-item
+﻿.Eshop-item
 {
  margin: 0px;
  font-weight: bold;
 }
+.Eshop-item .Title{
+	text-align: center;
+}	
 
-
-.eshop-item .Catalog
+.Eshop-item .Catalog
 {
+width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
-  align-content: space-between;
+  justify-content: space-evenly;
 }
 
-.eshop-item .Catalog .Item
+.Eshop-item .Catalog .Item
 {
+  min-width: 30%;
+  width: 400px;
   padding: 20px;
   border: 2px solid grey;
 }
 
-.eshop-item .Catalog .Item .photo
+.Eshop-item .Catalog .Item .photo
 {
 	width: 150px;
 	height: 180px;
