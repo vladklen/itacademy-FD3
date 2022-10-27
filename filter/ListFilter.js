@@ -26,7 +26,6 @@
 		// console.log(event.target)
 		// console.log('выбран ответ с кодом ' + event.target.value);
 		this.setState((prevState, props) => {
-			console.log("1");
 			return {
 				list: newArray,
 			};
