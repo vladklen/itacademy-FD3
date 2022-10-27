@@ -4,24 +4,34 @@
 
 	propTypes: {
 		list: React.PropTypes.arrayOf(
-			React.PropTypes.string.isRequired
-		),
+			React.PropTypes.shape({
+				name: React.PropTypes.string.isRequired,
+				code: React.PropTypes.number.isRequired,
+			})
+		)
 	},
 
 
-	// getInitialState: function () {
-	// 	return {
-	// 		selectedAnswerCode: null,
-	// 		freeanswertext: this.props.deffreeanswertext,
-	// 		workMode: this.props.startWorkMode,
-	// 	};
-	// },
+	getInitialState: function () {
+		return {
+			list: this.props.list,
+			selectedAnswerCode: null,
+			freeanswertext: null,
+		};
+	},
 
-	// answerSelected: function (code) {
-	// 	console.log('выбран ответ с кодом ' + code);
-	// 	this.setState({ selectedAnswerCode: code });
-	// },
-
+	handleChangeChk: function (event) {
+		let newArray = this.props.list.map((el, index) => el.name.includes(event.target.value) ? el : "123");
+		// console.log(newArray);
+		// console.log(event.target)
+		// console.log('выбран ответ с кодом ' + event.target.value);
+		this.setState((prevState, props) => {
+			console.log("1");
+			return {
+				list: newArray,
+			};
+		});
+	},
 	// vote: function () {
 	// 	console.log('голосование завершено, выбран ответ с кодом ' + this.state.selectedAnswerCode);
 
@@ -45,29 +55,21 @@
 
 	render: function () {
 
-		// var answersCode = this.props.answers.map(v =>
-		// 	React.createElement(VotesAnswer, {
-		// 		key: v.code,
-		// 		text: v.text, count: v.count, code: v.code,
-		// 		freeanswer: v.freeanswer, freeanswertext: this.state.freeanswertext,
-		// 		cbSelected: this.answerSelected,
-		// 		cbFreeAnswerTextChanged: this.freeAnswerTextChanged,
-		// 		selectedAnswerCode: this.state.selectedAnswerCode,
-		// 		workMode: this.state.workMode,
-		// 	})
-		// );
+		var itemFromList = this.state.list.map(el =>
+			React.DOM.li({ className: 'ListItem', key: el.code }, el.name)
+		);
 
 		return React.DOM.div({ className: 'ListFilter' },
 			React.DOM.div({ className: 'SearchLine' },
-				React.DOM.checkBox({ className: 'SearchLine' }, "123"),
-				React.DOM.div({ className: 'SearchLine' }, "234"),
-				React.DOM.div({ className: 'SearchLine' }, "556"),
+				React.DOM.input({
+					className: 'checkbox', type: 'checkbox', name: 'voteanswer', defaultChecked: this.state.selectedAnswerCode, onChange: this.handleChangeChk,
+				}),
+				React.DOM.input({
+					className: 'input-line', type: 'text', name: 'voteanswer', defaultValue: this.state.freeanswertext, onChange: this.handleChangeChk,
+				}),
+				React.DOM.button({ className: 'ResetButton' }, "556"),
 			),
-			// React.createElement(VotesQuestion, { question: this.props.question }),
-			React.DOM.div({ className: 'Answers' }, this.props.list),
-			// ((this.state.workMode == 1) && this.state.selectedAnswerCode)
-			// 	? React.DOM.input({ type: 'button', value: 'проголосовать', onClick: this.vote })
-			// 	: null
+			React.DOM.ul({ className: 'Answers' }, itemFromList),
 		);
 
 	},

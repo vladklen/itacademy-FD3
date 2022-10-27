@@ -17,7 +17,17 @@
 
 	<script>
 
-		var fullList = ['california', 'everything', 'aboveboard', 'washington', 'basketball', 'weathering', 'characters', 'literature', 'contraband', 'appreciate'];
+		var List = ['california', 'everything', 'aboveboard', 'washington', 'basketball', 'weathering', 'characters', 'literature', 'contraband', 'appreciate'];
+
+
+		var fullList = List.map((el, index) => {
+			return {
+				name: el,
+				code: index,
+			}
+		}
+		);
+
 
 		ReactDOM.render(
 			React.createElement(ListFilter, {
