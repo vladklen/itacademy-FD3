@@ -15,6 +15,7 @@
 	},
  
 	answerClicked: function(EO) {
+		console.log(this.props.code);
 	  this.props.cbSelected(this.props.code);
 	},
  
