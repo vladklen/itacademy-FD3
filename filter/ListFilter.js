@@ -20,8 +20,8 @@
 		};
 	},
 
-	handleChangeChk: function (event) {
 
+	handleChangeChk: function (event) {
 		if (event.target.checked) {
 			this.state.isChecked = true;
 			this.state.list.sort(function (a, b) {
@@ -33,7 +33,7 @@
 				}
 				return 0;
 			});
-		} else if (!event.target.checked && event.target.type == "checkbox") {
+		} else if (!event.target.checked && event.target.type == "checkbox" || event.target.type === "button") {
 			this.state.isChecked = false;
 			this.state.list.sort(function (a, b) {
 				if (a.code > b.code) {
@@ -45,7 +45,7 @@
 				return 0;
 			});
 		}
-		console.log(this.props.list);
+
 		if (event.target.type === "text") {
 			this.state.inputText = event.target.value;
 			this.state.list = this.props.list.filter((el) => (el.name.includes(event.target.value)));
@@ -55,19 +55,17 @@
 		}
 
 		if (event.target.type === "button") {
+			console.log(this.state.holdList);
 			this.state.isChecked = false;
 			this.state.inputText = "";
 			this.state.list = this.props.list;
 		}
-		console.log(this.props.list);
-		this.setState(() => {
-			return
-		});
+		this.setState(() => { });
 	},
 
 
-	render: function () {
 
+	render: function () {
 		var itemFromList = this.state.list.map(el => el !== null ?
 			React.DOM.li({ className: 'ListItem', key: el.code }, el.name) : null
 		);
