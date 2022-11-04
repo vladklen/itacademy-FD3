@@ -1,30 +1,30 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
 
-import './VotesBlock.css';
+import './ShopBlock.css';
 
-import VotesQuestion from './VotesQuestion';
-import VotesAnswer from './VotesAnswer';
+import ShopItem from './ShopItem';
 
-class VotesBlock extends React.Component {
+class ShopBlock extends React.Component {
 
   static propTypes = {
     startWorkMode: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
-    answers:PropTypes.arrayOf(
+    items:PropTypes.arrayOf(
       PropTypes.shape({
         code: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+		  brand: PropTypes.string.isRequired,
+		  price: PropTypes.number.isRequired,
+		  img: PropTypes.string.isRequired,
         freeanswer: PropTypes.bool,
       })
     ),
-    deffreeanswertext: PropTypes.string.isRequired,
   };
 
   state = {
     selectedAnswerCode: null,
-    freeanswertext:this.props.deffreeanswertext,
     workMode:this.props.startWorkMode,
   };
 
@@ -51,9 +51,14 @@ class VotesBlock extends React.Component {
 
   render() {
 
-    const answersCode=this.props.answers.map( v =>
-      <VotesAnswer key={v.code}
-        text={v.text} count={v.count} code={v.code}
+    const itemCode=this.props.items.map( v =>
+      <ShopItem key={v.code}
+        name={v.name} 
+		  brand = {v.brand}
+		  price={v.price} 
+		  img={v.img} 
+		  count={v.count} 
+		  code={v.code} 
         freeanswer={v.freeanswer} freeanswertext={this.state.freeanswertext}
         cbSelected={this.answerSelected}
         cbFreeAnswerTextChanged={this.freeAnswerTextChanged}
@@ -64,8 +69,20 @@ class VotesBlock extends React.Component {
 
     return (
       <div className='VotesBlock'>
-        <VotesQuestion question={this.props.question}/>
-        <div className='Answers'>{answersCode}</div>
+			<div className='ShopTitle'>{this.props.question}</div>
+			<table className='Answers'>
+				<tbody>
+					<tr>
+						<th>{"Model"}</th>
+						<th>{"Brand"}</th>
+						<th>{"Picture"}</th>
+						<th>{"Quantity"}</th>
+						<th>{"Price"}</th>
+						<th>{"Control"}</th>
+					</tr>
+					{itemCode}
+				</tbody>
+			</table>
         {
           ((this.state.workMode==1)&&this.state.selectedAnswerCode) &&
           <input type='button' value='проголосовать' onClick={this.vote} />
@@ -78,4 +95,4 @@ class VotesBlock extends React.Component {
 
 }
 
-export default VotesBlock;
+export default ShopBlock;

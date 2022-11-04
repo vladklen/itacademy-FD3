@@ -1,17 +1,15 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
 
-import VotesBlock from './components/VotesBlock';
+import ShopBlock from './components/ShopBlock';
 
-let questionText='Как вы относитесь к программированию?';
-let answersArr=require('./answers.json');
-let defaultFreeAnswerText="???";
+let questionText='Магаз11ин';
+let itemsList=require('./itemsList.json');
 
 ReactDOM.render(
-  <VotesBlock 
+  <ShopBlock 
     question={questionText}
-    answers={answersArr}
-    deffreeanswertext={defaultFreeAnswerText}
+    items={itemsList}
     startWorkMode={1}
   />
   , document.getElementById('container') 

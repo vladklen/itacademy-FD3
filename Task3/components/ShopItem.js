@@ -1,17 +1,19 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
 
-import './VotesAnswer.css';
+import './ShopItem.css';
 
-class VotesAnswer extends React.Component {
+class ShopItem extends React.Component {
 
   static propTypes = {
-    code: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+	code: PropTypes.number.isRequired,
+	count: PropTypes.number.isRequired,
+	name: PropTypes.string.isRequired,
+	brand: PropTypes.string.isRequired,
+	price: PropTypes.number.isRequired,
+	img: PropTypes.string.isRequired,
     workMode: PropTypes.number.isRequired,
     freeanswer: PropTypes.bool,
-    freeanswertext: PropTypes.string.isRequired,
     cbFreeAnswerTextChanged: PropTypes.func.isRequired,
     cbSelected: PropTypes.func.isRequired,
     selectedAnswerCode: PropTypes.number, // может быть null, пока ни один ответ не выбран
@@ -30,29 +32,33 @@ class VotesAnswer extends React.Component {
 
     if ( this.props.workMode==1 ) {
       return (
-        <div>
-          <label className='VotesBlockAnswer'>
-            <input type='radio' value={this.props.code} name='voteanswer'
-              checked={this.props.selectedAnswerCode==this.props.code}
-              onChange={this.answerClicked}
-            />
-            <span>{this.props.text}</span>
-            {
-              (this.props.freeanswer) &&
-              <input type='text' name='votefreeanswer' className='FreeAnswer'
+			<tr>
+				<td>{this.props.name}</td>
+				<td>{this.props.brand}</td>
+				<td>
+					<img src={this.props.img}>
+					</img></td>
+				<td>{this.props.count}</td>
+				<td>{this.props.price}</td>
+				<td>
+				<input type='button' value='Clear' className='item__button'
                 defaultValue={this.props.freeanswertext} onChange={this.freeAnswerTextChanged}
                 disabled={this.props.selectedAnswerCode!=this.props.code}
               />
-            }
-          </label>
-        </div>
+				  <input type='button' value='Delete' className='item__button'
+                defaultValue={this.props.freeanswertext} onChange={this.freeAnswerTextChanged}
+                disabled={this.props.selectedAnswerCode!=this.props.code}
+              />
+
+				</td>
+			</tr>
       )
     }
     else {
       return (
         <div className='VotesBlockAnswer'>
           <span className='Count'>{this.props.count}</span>
-          <span className='Text'>{this.props.text}</span>
+          <span className='Text'>{this.props.name}</span>
         </div>
       );
     }
@@ -61,4 +67,6 @@ class VotesAnswer extends React.Component {
 
 }
 
-export default VotesAnswer;
+export default ShopItem;
+
+
