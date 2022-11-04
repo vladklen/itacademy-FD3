@@ -1,0 +1,9 @@
+
+[
+	{ "name": "Honor 20", "brand": "HONOR", "price": 977.50, "img": "img/honor.jpeg", "code": 1, "countLeft": 10 },
+	{ "name": "iPhone 11", "brand": "Apple", "price": 1625.00, "img": "img/iphone.jpeg", "code": 2, "countLeft": 5 },
+	{ "name": "Redmi Note 9", "brand": "Xiaomi", "price": 770.00, "img": "img/xiaomi.jpeg", "code": 3, "countLeft": 2 },
+	{ "name": "Galaxy A52", "brand": "Samsung", "price": 900.00, "img": "img/samsung.jpeg", "code": 4, "countLeft": 17 },
+	{ "name": "P30 Lite", "brand": "Huawei", "price": 629.50, "img": "img/huawei.jpeg", "code": 5, "countLeft": 7 },
+	{ "name": "Альфа", "brand": "A1", "price": 300.00, "img": "img/a1.jpeg", "code": 6, "countLeft": 8 }
+]

@@ -22,9 +22,11 @@
 
 
 	handleChangeChk: function (event) {
+		var sortedArray = this.state.list.slice(0);
+
 		if (event.target.checked) {
 			this.state.isChecked = true;
-			this.state.list.sort(function (a, b) {
+			sortedArray.sort(function (a, b) {
 				if (a.name > b.name) {
 					return 1;
 				}
@@ -33,9 +35,9 @@
 				}
 				return 0;
 			});
-		} else if (!event.target.checked && event.target.type == "checkbox" || event.target.type === "button") {
+		} else if (!event.target.checked && event.target.type == "checkbox") {
 			this.state.isChecked = false;
-			this.state.list.sort(function (a, b) {
+			sortedArray.sort(function (a, b) {
 				if (a.code > b.code) {
 					return 1;
 				}
@@ -45,22 +47,23 @@
 				return 0;
 			});
 		}
-
 		if (event.target.type === "text") {
 			this.state.inputText = event.target.value;
-			this.state.list = this.props.list.filter((el) => (el.name.includes(event.target.value)));
+			sortedArray = this.props.list.filter((el) => (el.name.includes(event.target.value)));
 		} else if (event.target.value = " " && event.target.type === "text") {
 			this.state.inputText = event.target.value;
-			this.state.list = this.props.list;
+			sortedArray = this.props.list;
 		}
-
 		if (event.target.type === "button") {
-			console.log(this.state.holdList);
 			this.state.isChecked = false;
 			this.state.inputText = "";
-			this.state.list = this.props.list;
+			sortedArray = this.props.list;
 		}
-		this.setState(() => { });
+
+
+		this.setState({
+			list: sortedArray
+		});
 	},
 
 
@@ -69,7 +72,6 @@
 		var itemFromList = this.state.list.map(el => el !== null ?
 			React.DOM.li({ className: 'ListItem', key: el.code }, el.name) : null
 		);
-
 		return React.DOM.div({ className: 'ListFilter' },
 			React.DOM.div({ className: 'SearchLine' },
 				React.DOM.input({
