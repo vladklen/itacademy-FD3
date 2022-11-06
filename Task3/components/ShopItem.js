@@ -12,11 +12,12 @@ class ShopItem extends React.Component {
 	brand: PropTypes.string.isRequired,
 	price: PropTypes.number.isRequired,
 	img: PropTypes.string.isRequired,
-    workMode: PropTypes.number.isRequired,
-    freeanswer: PropTypes.bool,
-    cbFreeAnswerTextChanged: PropTypes.func.isRequired,
-    cbSelected: PropTypes.func.isRequired,
-    selectedAnswerCode: PropTypes.number, // может быть null, пока ни один ответ не выбран
+	isSelected: PropTypes.bool,
+	workMode: PropTypes.number.isRequired,
+	freeanswer: PropTypes.bool,
+	cbFreeAnswerTextChanged: PropTypes.func.isRequired,
+	cbSelected: PropTypes.func.isRequired,
+	selectedAnswerCode: PropTypes.number, // может быть null, пока ни один ответ не выбран
   };
 
   answerClicked = (EO) => {
@@ -31,8 +32,12 @@ class ShopItem extends React.Component {
   render() {
 
     if ( this.props.workMode==1 ) {
+		let selectedRow = "product__row";
+		if(this.props.isSelected){
+			selectedRow += " active";
+		}
       return (
-			<tr>
+			<tr className={selectedRow}>
 				<td>{this.props.name}</td>
 				<td>{this.props.brand}</td>
 				<td>

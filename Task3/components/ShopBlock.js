@@ -10,6 +10,7 @@ class ShopBlock extends React.Component {
   static propTypes = {
     startWorkMode: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
+	 select:PropTypes.bool.isRequired,
     items:PropTypes.arrayOf(
       PropTypes.shape({
         code: PropTypes.number.isRequired,
@@ -58,7 +59,8 @@ class ShopBlock extends React.Component {
 		  price={v.price} 
 		  img={v.img} 
 		  count={v.count} 
-		  code={v.code} 
+		  code={v.code}
+			isSelected = {this.props.select} 
         freeanswer={v.freeanswer} freeanswertext={this.state.freeanswertext}
         cbSelected={this.answerSelected}
         cbFreeAnswerTextChanged={this.freeAnswerTextChanged}
