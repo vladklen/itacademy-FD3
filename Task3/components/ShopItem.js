@@ -64,15 +64,6 @@ class ShopItem extends React.Component {
 				</tr>
 			)
 		}
-		else {
-			return (
-				<div className='VotesBlockAnswer'>
-					<span className='Count'>{this.props.count}</span>
-					<span className='Text'>{this.props.name}</span>
-				</div>
-			);
-		}
-
 	}
 
 }
