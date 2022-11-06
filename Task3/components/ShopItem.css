@@ -1,4 +1,4 @@
-﻿div.VotesBlockAnswer
+﻿/* div.VotesBlockAnswer
 {
   padding: 2px 0;
 }
@@ -31,4 +31,8 @@ label.VotesBlockAnswer .FreeAnswer
   width: 150px;
   margin-left: 18px;
   vertical-align: 3px;
+} */
+
+.ShopItem .ItemList__row.selected{
+	background-color: rgb(200, 192, 115);
 }

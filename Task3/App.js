@@ -3,17 +3,15 @@ import ReactDOM from 'react-dom';
 
 import ShopBlock from './components/ShopBlock';
 
-let questionText='Магаз11ин';
-let itemsList=require('./itemsList.json');
-let isSelected = true;
+let questionText = 'Магаз11ин';
+let itemsList = require('./itemsList.json');
 
 ReactDOM.render(
-  <ShopBlock 
-    question={questionText}
-    items={itemsList}
-    startWorkMode={1}
-	 select = {isSelected}
-  />
-  , document.getElementById('container') 
+	<ShopBlock
+		question={questionText}
+		items={itemsList}
+		startWorkMode={1}
+	/>
+	, document.getElementById('container')
 );
 
