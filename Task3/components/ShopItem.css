@@ -1,38 +1,17 @@
-﻿/* div.VotesBlockAnswer
-{
-  padding: 2px 0;
+﻿.ShopItem{
+	width: 100%;
 }
 
-div.VotesBlockAnswer .Count
-{
-  float: right;
-  width: 30px;
-  font-weight: bold;
-  text-align: right;
+.ShopItem input{
+	display: block;
+	width: 80%;
+	margin: 5px auto;
+	padding: 10px;
 }
-
-div.VotesBlockAnswer .Text
-{
-  margin-right: 30px;
-}
-
-label.VotesBlockAnswer input
-{
-  margin: 0 5px 0 0;
-}
-
-label.VotesBlockAnswer span
-{
-  vertical-align: 3px;
-}
-
-label.VotesBlockAnswer .FreeAnswer
-{
-  width: 150px;
-  margin-left: 18px;
-  vertical-align: 3px;
-} */
-
 .ShopItem .ItemList__row.selected{
 	background-color: rgb(200, 192, 115);
+}
+
+.ShopItem img{
+	height: 100px;
 }

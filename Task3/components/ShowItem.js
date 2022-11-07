@@ -5,23 +5,20 @@ import './ShowItem.css';
 
 class ShowItem extends React.Component {
 	static propTypes = {
-		item: PropTypes.arrayOf(
-			PropTypes.shape({
-				code: PropTypes.number.isRequired,
-				count: PropTypes.number.isRequired,
-				name: PropTypes.string.isRequired,
-				brand: PropTypes.string.isRequired,
-				price: PropTypes.number.isRequired,
-				img: PropTypes.string.isRequired,
-				freeanswer: PropTypes.bool,
-			})
-		),
+		code: PropTypes.number.isRequired,
+		count: PropTypes.number.isRequired,
+		name: PropTypes.string.isRequired,
+		brand: PropTypes.string.isRequired,
+		price: PropTypes.number.isRequired,
+		img: PropTypes.string.isRequired,
+		freeanswer: PropTypes.bool,
 	};
 
 	render() {
-		console.log(this.props.item);
 		return <div className='ShowItem'>
-			<span>{this.props.item.name}</span>
+			<h2>{this.props.name}</h2>
+			<div>{this.props.name}</div>
+			<div>{this.props.price}</div>
 		</div>;
 	}
 

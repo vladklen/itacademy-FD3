@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import './ShopBlock.css';
 
 import ShopItem from './ShopItem';
-import ShowItem from './ShopItem';
+import ShowItem from './ShowItem';
+import EditItem from './EditItem';
 
 class ShopBlock extends React.Component {
 
 	static propTypes = {
-		startWorkMode: PropTypes.number.isRequired,
 		question: PropTypes.string.isRequired,
 		items: PropTypes.arrayOf(
 			PropTypes.shape({
@@ -19,28 +19,71 @@ class ShopBlock extends React.Component {
 				brand: PropTypes.string.isRequired,
 				price: PropTypes.number.isRequired,
 				img: PropTypes.string.isRequired,
-				freeanswer: PropTypes.bool,
 			})
 		),
 	};
 
 	state = {
+		newItem: {
+			code: 0,
+			count: 0,
+			name: "",
+			brand: "",
+			price: 0,
+			img: "",
+		},
+		newItemCode: this.props.items.length + 1,
 		currentItem: undefined,
 		itemList: this.props.items,
 		selectedItemCode: null,
 		deleteElementCode: null,
-		workMode: this.props.startWorkMode,
+		workMode: 1, //0-список, 1- просмотр, 2-редактирование, 3-создание.
 	};
 
 	answerSelected = (code) => {
 		this.setState({
 			selectedItemCode: code,
-			currentItem: this.state.itemList.find((el) => el.code === this.state.selectedItemCode),
+			workMode: 1,
+			currentItem: this.state.itemList.find((el) => el.code === code),
 		});
 	};
 
 	deleteElement = (code) => {
 		this.setState({ itemList: this.state.itemList.filter((el) => (el.code !== code)) })
+		console.log(this.state.itemList);
+	}
+
+	editItem = (code) => {
+		this.setState({
+			selectedItemCode: code,
+			workMode: 2,
+			currentItem: this.state.itemList.find((el) => el.code === code),
+		});
+	}
+
+	saveItem = (item) => {
+		if (this.state.workMode === 3) {
+			this.state.itemList.push(item);
+			console.log(this.state.itemList)
+			this.setState({
+				itemList: this.state.itemList,
+				workMode: 0,
+			})
+		} else (
+			this.setState({
+				itemList: this.state.itemList.map((el) => el.code === this.state.currentItem.code ? el = item : el),
+				workMode: 0,
+			})
+		)
+	}
+
+	createNewProduct = () => {
+		this.setState({
+			workMode: 3,
+			newItemCode: this.state.newItemCode + 1,
+			currentItem: { ...this.state.newItem, code: this.state.newItemCode },
+		})
+		console.log(this.state.currentItem);
 	}
 
 
@@ -56,14 +99,14 @@ class ShopBlock extends React.Component {
 				freeanswer={v.freeanswer} freeanswertext={this.state.freeanswertext}
 				cbSelected={this.answerSelected}
 				cbDelete={this.deleteElement}
+				cbEditItem={this.editItem}
 				selectedItemCode={this.state.selectedItemCode}
-				workMode={this.state.workMode}
 			/>
 		);
 
 		return (
-			<div className='VotesBlock'>
-				<div className='ShopTitle'>{this.props.question}</div>
+			<div className='ShopBlock'>
+				<div className='title'>{this.props.question}</div>
 				<table className='ShopItem'>
 					<tbody>
 						<tr>
@@ -77,13 +120,18 @@ class ShopBlock extends React.Component {
 						{itemCode}
 					</tbody>
 				</table>
+				<input type='button' value='New Product' onClick={this.createNewProduct} />
 				{
-					(this.state.workMode == 1) &&
-					<input type='button' value='New Product' onClick={this.vote} />
+					(this.state.workMode == 3) &&
+					<EditItem key={this.state.newItemCode} item={this.state.currentItem} cbSave={this.saveItem} />
 				}
 				{
-					(this.state.currentItem) &&
-					<ShowItem item={this.state.currentItem} />
+					(this.state.currentItem && this.state.workMode == 1) &&
+					<ShowItem {...this.state.currentItem} />
+				}
+				{
+					(this.state.currentItem && this.state.workMode == 2) &&
+					<EditItem key={this.state.selectedItemCode} item={this.state.currentItem} cbSave={this.saveItem} />
 				}
 			</div>
 		);

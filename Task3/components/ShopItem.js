@@ -12,9 +12,9 @@ class ShopItem extends React.Component {
 		brand: PropTypes.string.isRequired,
 		price: PropTypes.number.isRequired,
 		img: PropTypes.string.isRequired,
-		workMode: PropTypes.number.isRequired,
 		cbSelected: PropTypes.func.isRequired,
 		cbDelete: PropTypes.func.isRequired,
+		cbEditItem: PropTypes.func.isRequired,
 		selectedItemCode: PropTypes.number, // может быть null, пока ни один товар не выбран
 	};
 
@@ -28,8 +28,14 @@ class ShopItem extends React.Component {
 	}
 
 
-	selectRow = (EO) => {
+	selectRow = (eo) => {
+		eo.stopPropagation();
 		this.props.cbSelected(this.props.code);
+	}
+
+	editItem = (eo) => {
+		eo.stopPropagation();
+		this.props.cbEditItem(this.props.code);
 	}
 
 	freeAnswerTextChanged = (EO) => {
@@ -40,34 +46,29 @@ class ShopItem extends React.Component {
 
 
 	render() {
+		return (
+			<tr onClick={this.selectRow} className={this.props.selectedItemCode == this.props.code ? "ItemList__row selected" : "ItemList__row"}>
+				<td>{this.props.name}</td>
+				<td>{this.props.brand}</td>
+				<td>
+					<img src={this.props.img}>
+					</img></td>
+				<td>{this.props.count}</td>
+				<td>{this.props.price}</td>
+				<td>
+					<input type='button' value='Edit' className='item__button'
+						onClick={this.editItem}
+					/>
+					<input type='button' value='Delete' className='item__button'
+						onClick={this.deleteItem}
+					/>
 
-		if (this.props.workMode == 1) {
+				</td>
+			</tr>
+		)
 
-			return (
-				<tr onClick={this.selectRow} className={this.props.selectedItemCode == this.props.code ? "ItemList__row selected" : "ItemList__row"}>
-					<td>{this.props.name}</td>
-					<td>{this.props.brand}</td>
-					<td>
-						<img src={this.props.img}>
-						</img></td>
-					<td>{this.props.count}</td>
-					<td>{this.props.price}</td>
-					<td>
-						<input type='button' value='Clear' className='item__button'
-							onChange={this.freeAnswerTextChanged}
-						/>
-						<input type='button' value='Delete' className='item__button'
-							onClick={this.deleteItem}
-						/>
-
-					</td>
-				</tr>
-			)
-		}
 	}
 
 }
 
 export default ShopItem;
-
-
