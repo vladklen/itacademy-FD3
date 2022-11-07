@@ -50,7 +50,6 @@ class ShopBlock extends React.Component {
 
 	deleteElement = (code) => {
 		this.setState({ itemList: this.state.itemList.filter((el) => (el.code !== code)) })
-		console.log(this.state.itemList);
 	}
 
 	editItem = (code) => {
@@ -62,19 +61,25 @@ class ShopBlock extends React.Component {
 	}
 
 	saveItem = (item) => {
-		if (this.state.workMode === 3) {
-			this.state.itemList.push(item);
-			console.log(this.state.itemList)
+		if (item) {
+			if (this.state.workMode === 3) {
+				this.state.itemList.push(item);
+				this.setState({
+					itemList: this.state.itemList,
+					workMode: 0,
+				})
+			} else (
+				this.setState({
+					itemList: this.state.itemList.map((el) => el.code === this.state.currentItem.code ? el = item : el),
+					workMode: 0,
+				})
+			)
+		} else {
 			this.setState({
-				itemList: this.state.itemList,
 				workMode: 0,
 			})
-		} else (
-			this.setState({
-				itemList: this.state.itemList.map((el) => el.code === this.state.currentItem.code ? el = item : el),
-				workMode: 0,
-			})
-		)
+		}
+
 	}
 
 	createNewProduct = () => {
@@ -83,7 +88,6 @@ class ShopBlock extends React.Component {
 			newItemCode: this.state.newItemCode + 1,
 			currentItem: { ...this.state.newItem, code: this.state.newItemCode },
 		})
-		console.log(this.state.currentItem);
 	}
 
 

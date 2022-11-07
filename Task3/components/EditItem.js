@@ -47,7 +47,7 @@ class EditItem extends React.Component {
 	validAll = () => {
 		const nameError = this.state.name.length ? "" : "Введите название товара";
 		const brandError = this.state.brand.length ? "" : "Введите название производителя товара";
-		const countError = !isNaN(this.state.count) && !this.state.count == " " ? "" : "количество";
+		const countError = !isNaN(this.state.count) && !this.state.count == " " ? "" : "введите количество";
 		const imgError = this.state.img.length ? "" : "Введите URL картинки товара";
 		const priceError = !isNaN(this.state.price) && !this.state.price == " " ? "" : "введите стоимость";
 		this.setState({ nameError, brandError, countError, imgError, priceError });
@@ -56,18 +56,28 @@ class EditItem extends React.Component {
 	render() {
 		return <div className='EditItem'>
 			<h2>ID:"{this.props.item.code}"</h2>
-			<input type="text" value={this.state.name} onChange={this.nameChange} />
-			<span>{this.state.nameError}</span>
-			<input type="text" value={this.state.brand} onChange={this.brandChange} />
-			<span>{this.state.brandError}</span>
-			<input type="text" value={this.state.count} onChange={this.countChange} />
-			<span>{this.state.countError}</span>
-			<input type="text" value={this.state.img} onChange={this.imgChange} />
-			<span>{this.state.imgError}</span>
-			<input type="text" value={this.state.price} onChange={this.priceChange} />
-			<span>{this.state.priceError}</span>
+			<div>
+				<input type="text" value={this.state.name} onChange={this.nameChange} />
+				<span>{this.state.nameError}</span>
+			</div>
+			<div>
+				<input type="text" value={this.state.brand} onChange={this.brandChange} />
+				<span>{this.state.brandError}</span>
+			</div>
+			<div>
+				<input type="text" value={this.state.count} onChange={this.countChange} />
+				<span>{this.state.countError}</span>
+			</div>
+			<div>
+				<input type="text" value={this.state.img} onChange={this.imgChange} />
+				<span>{this.state.imgError}</span>
+			</div>
+			<div>
+				<input type="text" value={this.state.price} onChange={this.priceChange} />
+				<span>{this.state.priceError}</span>
+			</div>
 			<div className='form-buttons'>
-				<input disabled={!!(this.state.nameError ||
+				<input disabled={this.state.name === "" || !!(this.state.nameError ||
 					this.state.brandError ||
 					this.state.imgError ||
 					this.state.countError ||
@@ -80,10 +90,9 @@ class EditItem extends React.Component {
 							price: Number(this.state.price),
 							code: this.props.item.code,
 						})} />
-				<input type="button" value="Cancel" onClick={() => this.props.cbSave(this.props.item)} />
+				<input type="button" value="Cancel" onClick={() => this.props.cbSave()} />
 			</div>
 		</div>;
 	}
-
 }
 export default EditItem;
