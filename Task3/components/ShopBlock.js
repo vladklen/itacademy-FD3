@@ -41,6 +41,7 @@ class ShopBlock extends React.Component {
 	};
 
 	answerSelected = (code) => {
+		console.log(this.state.workMode);
 		this.setState({
 			selectedItemCode: code,
 			workMode: 1,
@@ -49,7 +50,7 @@ class ShopBlock extends React.Component {
 	};
 
 	deleteElement = (code) => {
-		this.setState({ itemList: this.state.itemList.filter((el) => (el.code !== code)) })
+		this.setState({ itemList: this.state.itemList.filter((el) => (el.code !== code)), workMode: 0, selectedItemCode: null, })
 	}
 
 	editItem = (code) => {
@@ -85,6 +86,7 @@ class ShopBlock extends React.Component {
 	createNewProduct = () => {
 		this.setState({
 			workMode: 3,
+			selectedItemCode: null,
 			newItemCode: this.state.newItemCode + 1,
 			currentItem: { ...this.state.newItem, code: this.state.newItemCode },
 		})
