@@ -15,7 +15,7 @@ class ShopItem extends React.Component {
 		workMode: PropTypes.number.isRequired,
 		cbSelected: PropTypes.func.isRequired,
 		cbDelete: PropTypes.func.isRequired,
-		selectedAnswerCode: PropTypes.number, // может быть null, пока ни один ответ не выбран
+		selectedItemCode: PropTypes.number, // может быть null, пока ни один товар не выбран
 	};
 
 	answerClicked = (EO) => {
@@ -44,7 +44,7 @@ class ShopItem extends React.Component {
 		if (this.props.workMode == 1) {
 
 			return (
-				<tr onClick={this.selectRow} className={this.props.selectedAnswerCode == this.props.code ? "ItemList__row selected" : "ItemList__row"}>
+				<tr onClick={this.selectRow} className={this.props.selectedItemCode == this.props.code ? "ItemList__row selected" : "ItemList__row"}>
 					<td>{this.props.name}</td>
 					<td>{this.props.brand}</td>
 					<td>

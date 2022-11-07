@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './ShopBlock.css';
 
 import ShopItem from './ShopItem';
+import ShowItem from './ShopItem';
 
 class ShopBlock extends React.Component {
 
@@ -24,14 +25,18 @@ class ShopBlock extends React.Component {
 	};
 
 	state = {
+		currentItem: undefined,
 		itemList: this.props.items,
-		selectedAnswerCode: null,
+		selectedItemCode: null,
 		deleteElementCode: null,
 		workMode: this.props.startWorkMode,
 	};
 
 	answerSelected = (code) => {
-		this.setState({ selectedAnswerCode: code });
+		this.setState({
+			selectedItemCode: code,
+			currentItem: this.state.itemList.find((el) => el.code === this.state.selectedItemCode),
+		});
 	};
 
 	deleteElement = (code) => {
@@ -40,8 +45,7 @@ class ShopBlock extends React.Component {
 
 
 	render() {
-		console.log(this.state.itemList);
-		const itemCode = this.state.itemList.map(v =>
+		const itemCode = this.state.itemList.map((v) =>
 			<ShopItem key={v.code}
 				name={v.name}
 				brand={v.brand}
@@ -52,8 +56,7 @@ class ShopBlock extends React.Component {
 				freeanswer={v.freeanswer} freeanswertext={this.state.freeanswertext}
 				cbSelected={this.answerSelected}
 				cbDelete={this.deleteElement}
-				cbFreeAnswerTextChanged={this.freeAnswerTextChanged}
-				selectedAnswerCode={this.state.selectedAnswerCode}
+				selectedItemCode={this.state.selectedItemCode}
 				workMode={this.state.workMode}
 			/>
 		);
@@ -75,13 +78,15 @@ class ShopBlock extends React.Component {
 					</tbody>
 				</table>
 				{
-					((this.state.workMode == 1) && this.state.selectedAnswerCode) &&
-					<input type='button' value='проголосовать' onClick={this.vote} />
+					(this.state.workMode == 1) &&
+					<input type='button' value='New Product' onClick={this.vote} />
+				}
+				{
+					(this.state.currentItem) &&
+					<ShowItem item={this.state.currentItem} />
 				}
 			</div>
-		)
-			;
-
+		);
 	}
 
 }
