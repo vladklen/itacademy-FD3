@@ -50,7 +50,11 @@ class ShopBlock extends React.Component {
 	};
 
 	deleteElement = (code) => {
-		this.setState({ itemList: this.state.itemList.filter((el) => (el.code !== code)), workMode: 0, selectedItemCode: null, })
+		this.setState({
+			itemList: this.state.itemList.filter((el) => (el.code !== code)),
+			workMode: 0,
+			selectedItemCode: null,
+		})
 	}
 
 	editItem = (code) => {
