@@ -12,15 +12,10 @@ class RainbowBlock extends React.Component {
 
 
 	render() {
-
-		const rainbowElement = this.props.colors.map(el =>
-			<RainbowFrame color={el} />
-		);
-		console.log(rainbowElement);
 		return (
-			<div className='ColorsBlock'>
-				<div className='result'>{rainbowElement}</div>
-			</div>
+			<RainbowFrame colors={this.props.colors}>
+				Hello!
+			</RainbowFrame>
 		);
 	}
 }
