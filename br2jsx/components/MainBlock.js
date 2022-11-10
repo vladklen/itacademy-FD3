@@ -6,11 +6,6 @@ import './MainBlock.css';
 
 class MainBlock extends React.Component {
 
-	state = {
-		// let text = "первый<br>второй<br/>третий<br />последний";
-	};
-
-
 	render() {
 		let result = [];
 		let index = this.props.text.split('br').length - 1
