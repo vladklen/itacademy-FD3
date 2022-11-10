@@ -1,0 +1,10 @@
+﻿.br2jx{
+	background-color: green;
+	width: 100px;
+	height: 100px;
+	margin: 100px auto;
+	display: flex;
+	color: white;
+	justify-content: center;
+	align-items: center;
+}
