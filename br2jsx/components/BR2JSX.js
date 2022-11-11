@@ -8,10 +8,9 @@ class BR2JSX extends React.Component {
 
 	render() {
 
-		const sortedText = this.props.text.replace(/(<(\/?[^>]+)>)/g, ' ')
-			.split(' ')
+		const sortedText = this.props.text
+			.split(/<br\s?\/?>/)
 			.map((el, i) => (i === 0 ? el : [<br key={i} />, el]));
-
 
 		return (
 			<div className='br2jx'> {sortedText}</div >
