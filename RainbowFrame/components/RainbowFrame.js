@@ -7,12 +7,12 @@ class RainbowFrame extends React.Component {
 
 
 	render() {
-		let test = this.props.colors.reduce((acc, el) => {
+		let colorBorder = this.props.colors.reduce((acc, el) => {
 			return <div style={{ border: "solid 2px " + el, padding: "20px" }} >{acc}</div>
 		}, this.props.children)
-		
+
 		return (
-			<div>{test}</div>
+			<div>{colorBorder}</div>
 		);
 	}
 
