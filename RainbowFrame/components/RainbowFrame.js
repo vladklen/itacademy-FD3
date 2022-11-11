@@ -7,19 +7,16 @@ class RainbowFrame extends React.Component {
 
 
 	render() {
+		console.log(this.props.colors)
+
+		let test = this.props.colors.reduce((acc, el, index) => {
+			return <div style={{ border: "solid 2px " + el, padding: "20px" }} >{acc}</div>
+		}, this.props.children)
+
+		console.log(test)
+
 		return (
-			<div>
-				{
-					this.props.colors.length === 1 ?
-						< div style={{ border: "solid 2px " + this.props.colors[0], padding: "20px" }}>
-							{this.props.children}
-						</div >
-						:
-						<div style={{ border: "solid 2px " + this.props.colors[0], padding: "20px" }}>
-							<RainbowFrame colors={this.props.colors.slice(1)}>{this.props.children}</RainbowFrame>
-						</div>
-				}
-			</div>
+			<div>{test}</div>
 		);
 	}
 
