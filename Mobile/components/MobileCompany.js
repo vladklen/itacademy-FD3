@@ -29,7 +29,7 @@ class MobileCompany extends React.PureComponent {
 		clients: this.props.clients,
 		editMode: this.props.editMode,
 		editableClient: null,
-		newId: 100 + (this.props.clients.length + 1),
+		newId: this.props.clients.slice(-1)[0].id+1,
 		newClient: {
 			id: null,
 			fio: {
@@ -43,6 +43,12 @@ class MobileCompany extends React.PureComponent {
 	};
 
 	componentDidMount = () => {
+		mobileEvents.addListener('EClientDelete', this.deleteClient);
+		mobileEvents.addListener('EEditAddClient', this.addClient);
+		mobileEvents.addListener('EEditClient', this.EditClient);
+		
+	};
+	componentWillUnmount = () => {
 		mobileEvents.addListener('EClientDelete', this.deleteClient);
 		mobileEvents.addListener('EEditAddClient', this.addClient);
 		mobileEvents.addListener('EEditClient', this.EditClient);
@@ -85,13 +91,9 @@ class MobileCompany extends React.PureComponent {
 
 
 	deleteClient = (id) => {
-		let newClients = [...this.state.clients];
-		newClients.forEach((c, i) => {
-			if (c.id == id) {
-				newClients.splice(i, 1)
-			}
-		});
-		this.setState({ clients: newClients });
+		this.setState({
+			clients: this.state.clients.filter((el) => (el.id !== id)),
+		})
 	}
 
 
@@ -155,16 +157,18 @@ class MobileCompany extends React.PureComponent {
 					<input type="button" value="Заблокированные" onClick={this.showBlocked} />
 				</div>
 				<table>
-					<tr>
-						<th>Фамилия</th>
-						<th>Имя</th>
-						<th>Отчество</th>
-						<th>Баланс</th>
-						<th>Статус</th>
-						<th>Редактировать</th>
-						<th>Удалить</th>
-					</tr>
-					{clientsCode}
+					<tbody>
+						<tr>
+							<th>Фамилия</th>
+							<th>Имя</th>
+							<th>Отчество</th>
+							<th>Баланс</th>
+							<th>Статус</th>
+							<th>Редактировать</th>
+							<th>Удалить</th>
+						</tr>
+						{clientsCode}
+					</tbody>
 				</table>
 				<input type="button" value="Добавить клиента" onClick={this.addNewClient} />
 				{
