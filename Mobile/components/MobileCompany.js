@@ -1,8 +1,9 @@
 ﻿import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 
 import MobileClient from './MobileClient';
-import { voteEvents } from './events';
+import EditClient from './EditClient'
+import { mobileEvents } from './events';
 
 import './MobileCompany.css';
 
@@ -21,19 +22,70 @@ class MobileCompany extends React.PureComponent {
 				workingMode: PropTypes.number.isRequired,
 			})
 		),
-
+		editMode: PropTypes.number.isRequired,
 	};
 
 	state = {
 		clients: this.props.clients,
+		editMode: this.props.editMode,
+		editableClient: null,
+		newId: 100 + (this.props.clients.length + 1),
+		newClient: {
+			id: null,
+			fio: {
+				family: "",
+				name: "",
+				patronymic: "",
+			},
+			balance: 0,
+			workingMode: 1,
+		},
 	};
 
 	componentDidMount = () => {
-		voteEvents.addListener('EClientDelete', this.deleteClient);
+		mobileEvents.addListener('EClientDelete', this.deleteClient);
+		mobileEvents.addListener('EEditAddClient', this.addClient);
+		mobileEvents.addListener('EEditClient', this.EditClient);
 	};
 
+	addClient = (client) => {
+		let newClients = [...this.state.clients];
+		if (client.id == null) {
+			client.id = this.state.newId;
+			newClients.push(client);
+			this.setState({
+				clients: newClients,
+				editMode: 0,
+				newId: this.state.newId + 1,
+			});
+		} else {
+			newClients.forEach((c, i) => {
+				if (c.id == client.id) {
+					newClients[i] = client;
+				}
+			});
+			this.setState({ clients: newClients, editMode: 0 });
+		}
+	};
+
+	addNewClient = () => {
+		this.setState({ editMode: 1 });
+	}
+
+
+	EditClient = (client) => {
+		let newClients = [...this.state.clients];
+		newClients.forEach((c, i) => {
+			if (c.id == client.id) {
+				let newClient = c;
+				this.setState({ clients: newClients, editableClient: newClient, editMode: 2 });
+			}
+		})
+	};
+
+
 	deleteClient = (id) => {
-		let newClients = [...this.state.clients]; // копия самого массива клиентов
+		let newClients = [...this.state.clients];
 		newClients.forEach((c, i) => {
 			if (c.id == id) {
 				newClients.splice(i, 1)
@@ -44,11 +96,10 @@ class MobileCompany extends React.PureComponent {
 
 
 	showAll = () => {
-		let newClients = [...this.state.clients]; // копия самого массива клиентов
+		let newClients = [...this.state.clients];
 		newClients.forEach((c, i) => {
 			if (c.workingMode == 0) {
-				//if ( c.id==clientId && c.balance!==newBalance ) {
-				let newClient = { ...c }; // копия хэша изменившегося клиента
+				let newClient = { ...c };
 				newClient.workingMode = 1;
 				newClients[i] = newClient;
 			}
@@ -57,10 +108,10 @@ class MobileCompany extends React.PureComponent {
 	};
 
 	showActive = () => {
-		let newClients = [...this.state.clients]; // копия самого массива клиентов
+		let newClients = [...this.state.clients];
 		newClients.forEach((c, i) => {
 			if (c.balance <= 0) {
-				let newClient = { ...c }; // копия хэша изменившегося клиента
+				let newClient = { ...c };
 				newClient.workingMode = 0;
 				newClients[i] = newClient;
 			}
@@ -69,7 +120,7 @@ class MobileCompany extends React.PureComponent {
 	};
 
 	showBlocked = () => {
-		let newClients = [...this.state.clients]; // копия самого массива клиентов
+		let newClients = [...this.state.clients];
 		newClients.forEach((c, i) => {
 			if (c.balance > 0) {
 				let newClient = { ...c }; // копия хэша изменившегося клиента
@@ -80,22 +131,8 @@ class MobileCompany extends React.PureComponent {
 		this.setState({ clients: newClients });
 	};
 
-	/*
-	setBalance = (clientId,newBalance) => {
-	  let changed=false;
-	  let newClients=[...this.state.clients]; // копия самого массива клиентов
-	  newClients.forEach( (c,i) => {
-		 if ( c.id==clientId && c.balance!=newBalance ) {
-			let newClient={...c}; // копия хэша изменившегося клиента
-			newClient.balance=newBalance;
-			newClients[i]=newClient;
-			changed=true;
-		 }
-	  } );
-	  if ( changed )
-		 this.setState({clients:newClients});
-	};
-	*/
+
+
 
 
 	render() {
@@ -112,9 +149,11 @@ class MobileCompany extends React.PureComponent {
 
 		return (
 			<div className='MobileCompany'>
-				<input type="button" value="Все" onClick={this.showAll} />
-				<input type="button" value="Активные" onClick={this.showActive} />
-				<input type="button" value="Заблокированные" onClick={this.showBlocked} />
+				<div className='MobileCompany__buttons'>
+					<input type="button" value="Все" onClick={this.showAll} />
+					<input type="button" value="Активные" onClick={this.showActive} />
+					<input type="button" value="Заблокированные" onClick={this.showBlocked} />
+				</div>
 				<table>
 					<tr>
 						<th>Фамилия</th>
@@ -127,7 +166,15 @@ class MobileCompany extends React.PureComponent {
 					</tr>
 					{clientsCode}
 				</table>
-				<input type="button" value="Добавить клиента" onClick={this.setBalance1} />
+				<input type="button" value="Добавить клиента" onClick={this.addNewClient} />
+				{
+					(this.state.editMode == 1) &&
+					<EditClient key={this.state.newId} item={this.state.newClient} />
+				}
+				{
+					(this.state.editMode == 2) &&
+					<EditClient key={this.state.editableClient.id} item={this.state.editableClient} />
+				}
 			</div>
 		)
 			;

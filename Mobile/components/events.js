@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 
-let voteEvents = new EventEmitter();
+let mobileEvents = new EventEmitter();
 //EClientDelete удаляем выбранного клиента, его сэмиттирует MobilClient и примет MobileCompany
-export { voteEvents };
+//ECliendAdd добовляем нового клиента/или редактируем информацию
+export { mobileEvents };

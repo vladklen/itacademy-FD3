@@ -1,8 +1,23 @@
 ﻿.MobileCompany
 {
-  border: double gray 3px;
-  padding: 3px 7px;
-  background-color: lightyellow;
+	margin: 0 auto;
+	width: 800px;
+  padding: 20px;
+  background-color: rgba(214, 214, 211, 0.478);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.MobileCompany table{
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.MobileCompany input{
+	padding: 5px 15px;
+	max-width: 200px;
 }
 
 .MobileCompanyName
@@ -13,4 +28,10 @@
 .MobileCompanyClients
 {
   padding-top: 5px;
+}
+
+.MobileCompany__buttons{
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
 }

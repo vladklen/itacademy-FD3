@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import MobileCompany from './components/MobileCompany';
 
-let mode = 1;
+let mode = 0;
 let clientsArr = [
 	{
 		id: 101,
@@ -16,7 +16,7 @@ let clientsArr = [
 		workingMode: 1
 	},
 	{
-		id: 105,
+		id: 102,
 		fio: {
 			family: "Сидоров",
 			name: "Сидор",
@@ -26,7 +26,7 @@ let clientsArr = [
 		workingMode: 1
 	},
 	{
-		id: 110,
+		id: 103,
 		fio: {
 			family: "Петров",
 			name: "Петр",
@@ -36,7 +36,7 @@ let clientsArr = [
 		workingMode: 1
 	},
 	{
-		id: 120,
+		id: 104,
 		fio: {
 			family: "Григорьев",
 			name: "Григорий",
@@ -50,6 +50,7 @@ let clientsArr = [
 ReactDOM.render(
 	<MobileCompany
 		clients={clientsArr}
+		editMode={mode}
 	/>
 	, document.getElementById('container')
 );

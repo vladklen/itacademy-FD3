@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 
 import './MobileClient.css';
-import { voteEvents } from './events';
+import { mobileEvents } from './events';
 
 class MobileClient extends React.PureComponent {
 
@@ -30,8 +30,12 @@ class MobileClient extends React.PureComponent {
 	};
 
 	deleteClient = (EO) => {
-		voteEvents.emit('EClientDelete', this.props.info.id);
+		mobileEvents.emit('EClientDelete', this.props.info.id);
 	};
+
+	editClient = () => {
+		mobileEvents.emit('EEditClient', this.state.info);
+	}
 
 	render() {
 
@@ -48,7 +52,7 @@ class MobileClient extends React.PureComponent {
 						? <td className='MobileClientBalance MobileClientBalanceActive'>Активен</td>
 						: <td className='MobileClientBalance MobileClientBalanceBlocked'>Заблокирован</td>
 				}
-				<td><input type="button" value="Редактировать" onClick={this.setBalance1} /></td>
+				<td><input type="button" value="Редактировать" onClick={this.editClient} /></td>
 				<td><input type="button" value="Удалить" onClick={this.deleteClient} /></td>
 			</tr>
 		);

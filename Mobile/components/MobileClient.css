@@ -3,9 +3,12 @@
   padding: 2px 0;
 }
 
-td{
+td, th{
 	padding: 10px;
+	border-bottom: 1px solid grey;
+	border-radius: 10px;
 }
+
 
 span.MobileClientBalance
 {
