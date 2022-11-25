@@ -2,36 +2,23 @@
 
 import "./Controls.css";
 
-export default ({ cbFindItem, cbSortItems, cbResetList, checkBox }) => {
+export default ({ sortList, resetList, valueSort, valueSearch, searchList }) => {
 
-	const inputText = useRef(null);
+	console.log("render Controls")
+	const resetForm = (e) => {
+		e.preventDefault()
+		resetList()
+	}
 
-	const memoizeedRenderResult = useMemo(() => {
-		console.log("render Controls ");
-
-		const checkInput = () => {
-			if (inputText.current) {
-				cbFindItem(inputText.current.value)
-			}
-		};
-
-		const resetForm = (e) => {
-			e.preventDefault();
-			console.log(inputText);
-			inputText.current.value = "";
-			cbResetList();
-		}
-
-		return (
-			<div className='Controls'>
-				<input type="checkbox" onChange={cbSortItems} checked={checkBox}></input>
-				<input ref={inputText} onChange={(checkInput)} type="text" placeholder="Search"></input>
-				<input type="button" onClick={resetForm} value="сброс"></input>
-			</div>
-		);
-
-	}, [cbFindItem, cbSortItems, cbResetList]
-	);
-
-	return memoizeedRenderResult;
+	return (
+		<form className="Controls">
+			<input type="checkbox" checked={valueSort} onChange={(e) => sortList(e.target.checked)} />
+			<input
+				type="text"
+				value={valueSearch}
+				onChange={(e) => searchList(e.target.value)}
+			/>
+			<input type="button" value="Сброс" onClick={resetForm}></input>
+		</form>
+	)
 };

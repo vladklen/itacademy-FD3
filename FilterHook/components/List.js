@@ -1,22 +1,16 @@
-﻿import React, { useMemo } from 'react';
+﻿import React, { useState } from 'react';
 
 import "./List.css";
 
 export default ({ list }) => {
+	console.log("render Lists")
+	const wordsList = list.join('\n')
+	const [words, setWords] = useState(wordsList)
 
-
-	const memoizeedRenderResult = useMemo(() => {
-		console.log("render list")
-		const wordList = list.join('\n');
-		return (
-			<div className='List'>
-				<textarea value={wordList} rows={list.length} readOnly>
-				</textarea>
-			</div >
-		)
-	}, [list]
-	);
-
-	return memoizeedRenderResult;
+	return (
+		<div className="List">
+			<textarea value={wordsList} rows={list.length} readOnly onChange={() => setWords(words)} />
+		</div>
+	)
 };
 

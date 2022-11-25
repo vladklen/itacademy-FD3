@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 
 import Controls from "./Controls";
 import List from "./List";
@@ -7,48 +7,48 @@ import "./Filter.css";
 
 export default props => {
 
-	console.log("render MobileCompany");
+	console.log("render Filter");
 
-	const [list, setList] = useState(props.list);
-	const [checked, setChecked] = useState(false);
-	const [oldList, setOldList] = useState(null)
+	const [list, setList] = useState(props.list)
+	const [checkedSort, setCheckedSort] = useState(false)
+	const [searchLine, setsearchLine] = useState('')
 
-	const findItem = (input) => {
-		const newList = list.filter(el => el.includes(input));
-		setList(newList);
+	const sortListHandler = () => {
+		setCheckedSort((current) => !current)
 	}
 
-	const sortItem = () => {
-		if (!checked) {
-			setOldList(list);
-			const newList = list.slice();
-			newList.sort((a, b) => (a < b ? -1 : 1));
-			setList(newList);
-		} else {
-			setList(oldList);
+	const searchListHandler = (search) => {
+		setsearchLine(search)
+	}
+
+	const sortList = useMemo(() => {
+		if (checkedSort) {
+			return [...list].sort((a, b) => (a < b ? -1 : 1))
 		}
-		setChecked((current) => !current)
+		return list
+	}, [checkedSort, list])
+
+	const sortedAndSearchList = useMemo(() => {
+		return sortList.filter((el) => el.includes(searchLine.toLowerCase()))
+	}, [searchLine, sortList])
+
+	const resetListHandler = () => {
+		setList(list)
+		setCheckedSort(false)
+		setsearchLine('')
 	}
-
-	const resetList = () => {
-		setList(props.list);
-		setChecked(false)
-	}
-
-
-	const memoizedFindItems = useCallback(findItem, []);
-	const memoizedSortItems = useCallback(sortItem, [list]);//Зависит от list
-	const memoizedResetItems = useCallback(resetList, []);
 
 
 	return (
 		<div className="Filter">
 			<Controls
-				cbFindItem={memoizedFindItems}
-				cbSortItems={memoizedSortItems}
-				cbResetList={memoizedResetItems}
-				checkBox={checked} />
-			<List list={list} />
+				valueSort={checkedSort}
+				valueSearch={searchLine}
+				resetList={resetListHandler}
+				sortList={sortListHandler}
+				searchList={searchListHandler}
+			/>
+			<List list={sortedAndSearchList} />
 		</div>
-	);
+	)
 };
