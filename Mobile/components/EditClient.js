@@ -41,7 +41,6 @@ class EditClient extends React.Component {
 
 	render() {
 		return <div className='EditItem'>
-			{/* <h2>Клиент ID:"{this.props.item.id}"</h2> */}
 			<span>Фамилия</span>
 			<div>
 				<input type="text" defaultValue={this.state.client.fio.family} ref={this.newFamilyRef} />

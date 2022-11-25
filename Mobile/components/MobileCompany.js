@@ -29,7 +29,7 @@ class MobileCompany extends React.PureComponent {
 		clients: this.props.clients,
 		editMode: this.props.editMode,
 		editableClient: null,
-		newId: this.props.clients.slice(-1)[0].id+1,
+		newId: Math.max(...this.props.clients.map(el => el.id)) + 1,
 		newClient: {
 			id: null,
 			fio: {
@@ -46,12 +46,13 @@ class MobileCompany extends React.PureComponent {
 		mobileEvents.addListener('EClientDelete', this.deleteClient);
 		mobileEvents.addListener('EEditAddClient', this.addClient);
 		mobileEvents.addListener('EEditClient', this.EditClient);
-		
+		console.log(this.state.newId)
+
 	};
 	componentWillUnmount = () => {
-		mobileEvents.addListener('EClientDelete', this.deleteClient);
-		mobileEvents.addListener('EEditAddClient', this.addClient);
-		mobileEvents.addListener('EEditClient', this.EditClient);
+		mobileEvents.removeListener('EClientDelete', this.deleteClient);
+		mobileEvents.removeListener('EEditAddClient', this.addClient);
+		mobileEvents.removeListener('EEditClient', this.EditClient);
 	};
 
 	addClient = (client) => {
