@@ -1,7 +1,6 @@
-.MobileCompany
-{
-  border: double gray 3px;
-  width: 220px;
-  padding: 3px 7px;
-  background-color: lightyellow;
+.Filter{
+	width: 280px;
+	margin: 100px auto;
+	border: 1px solid black;
+	padding: 20px;
 }

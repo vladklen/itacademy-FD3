@@ -9,32 +9,45 @@ export default props => {
 
 	console.log("render MobileCompany");
 
-	const [list, sortList] = useState(props.list);
-	console.log(list);
+	const [list, setList] = useState(props.list);
+	const [checked, setChecked] = useState(false);
+	const [oldList, setOldList] = useState(null)
 
-
-	function findItem(input) {
+	const findItem = (input) => {
 		const newList = list.filter(el => el.includes(input));
-		sortList(newList);
+		setList(newList);
 	}
 
-	function sortItem() {
-		console.log(list)
-		const newList = list.slice();
-		newList.sort((a, b) => (a < b ? -1 : 1));
-		sortList(newList);
+	const sortItem = () => {
+		if (!checked) {
+			setOldList(list);
+			const newList = list.slice();
+			newList.sort((a, b) => (a < b ? -1 : 1));
+			setList(newList);
+		} else {
+			setList(oldList);
+		}
+		setChecked((current) => !current)
 	}
+
+	const resetList = () => {
+		setList(props.list);
+		setChecked(false)
+	}
+
 
 	const memoizedFindItems = useCallback(findItem, []);
-	const memoizedSortItems = useCallback(sortItem, []);
-	// useCallback - обёртка над useMemo
-	// т.к. массив зависимостей пуст, useCallback при каждом рендере будет возвращать 
-	// одну и ту же ссылку на функцию changeBalance, 
-	// хоть сама changeBalance каждый раз новая
+	const memoizedSortItems = useCallback(sortItem, [list]);//Зависит от list
+	const memoizedResetItems = useCallback(resetList, []);
+
 
 	return (
 		<div className="Filter">
-			<Controls cbFindItem={memoizedFindItems} cbSortItems={memoizedSortItems} />
+			<Controls
+				cbFindItem={memoizedFindItems}
+				cbSortItems={memoizedSortItems}
+				cbResetList={memoizedResetItems}
+				checkBox={checked} />
 			<List list={list} />
 		</div>
 	);

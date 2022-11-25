@@ -4,12 +4,19 @@ import "./List.css";
 
 export default ({ list }) => {
 
-	const wordList = list.join('\n');
 
-	return (
-		<div className='List'>
-			<textarea value={wordList} rows={list.length}>
-			</textarea>
-		</div>
-	)
+	const memoizeedRenderResult = useMemo(() => {
+		console.log("render list")
+		const wordList = list.join('\n');
+		return (
+			<div className='List'>
+				<textarea value={wordList} rows={list.length} readOnly>
+				</textarea>
+			</div >
+		)
+	}, [list]
+	);
+
+	return memoizeedRenderResult;
 };
+
