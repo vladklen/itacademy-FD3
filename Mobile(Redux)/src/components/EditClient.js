@@ -5,7 +5,6 @@ import "./EditClient.css"
 
 export const EditClient = ({ client, cbSave }) => {
 
-	console.log(client[0].id)
 	const [family, setFamily] = useState(client[0].fio.family)
 	const [name, setName] = useState(client[0].fio.name)
 	const [patronymic, setPatronymic] = useState(client[0].fio.patronymic)

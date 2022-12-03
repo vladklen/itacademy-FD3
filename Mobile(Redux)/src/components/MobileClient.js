@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import "./MobileClient.css"
 
-// import { profileUpdate } from "../redux/profileSlice.js";
 
 export const MobileClient = ({ client, cbDelete, cbEdit }) => {
 
@@ -18,7 +17,7 @@ export const MobileClient = ({ client, cbDelete, cbEdit }) => {
 					? <td className='MobileClientBalance MobileClientBalanceActive'>Активен</td>
 					: <td className='MobileClientBalance MobileClientBalanceBlocked'>Заблокирован</td>
 			}
-			<td><input type="button" value="Редактировать" onClick={() => cbEdit(client.id)}/></td>
+			<td><input type="button" value="Редактировать" onClick={() => cbEdit(client.id)} /></td>
 			<td><input type="button" value="Удалить" onClick={() => cbDelete(client.id)} /></td>
 		</tr>
 	);
