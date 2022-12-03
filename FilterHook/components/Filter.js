@@ -30,7 +30,7 @@ export default props => {
 
 	const sortedAndSearchList = useMemo(() => {
 		return sortList.filter((el) => el.includes(searchLine.toLowerCase()))
-	}, [searchLine, sortList])
+	}, [searchLine, sortList])set
 
 	const resetListHandler = () => {
 		setList(list)

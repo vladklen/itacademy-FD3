@@ -1,0 +1,22 @@
+.EditItem{
+	margin: 20px 0px;
+	padding: 10px;
+	border: 1px solid grey;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+
+.EditItem span{
+	font-weight: bold;
+}
+.EditItem h2{
+	width: 100%;
+}
+.EditItem .form-buttons{
+	width: 60%;
+	display:flex;
+	flex-direction: row;
+	gap: 10px;
+}
